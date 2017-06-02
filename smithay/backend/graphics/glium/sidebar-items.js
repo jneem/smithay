@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["GliumGraphicsBackend","Wrapper to expose `glium` compatibility"]],"trait":[["IntoGlium","Converter trait to expose `glium` compatibility for all `EGLGraphicsBackend`s"]]});
