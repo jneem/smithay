@@ -109,6 +109,7 @@ impl<D: SeatHandler + 'static> Dispatch<ZwpInputMethodKeyboardGrabV2, InputMetho
         _object: &ZwpInputMethodKeyboardGrabV2,
         data: &InputMethodKeyboardUserData<D>,
     ) {
+        tracing::info!("destroy grab");
         data.handle.inner.lock().unwrap().grab = None;
         data.keyboard_handle.unset_grab(state);
     }
@@ -124,6 +125,7 @@ impl<D: SeatHandler + 'static> Dispatch<ZwpInputMethodKeyboardGrabV2, InputMetho
     ) {
         match request {
             zwp_input_method_keyboard_grab_v2::Request::Release => {
+                tracing::info!("release keyboard");
                 data.handle.inner.lock().unwrap().grab = None;
                 data.keyboard_handle.unset_grab(state);
             }

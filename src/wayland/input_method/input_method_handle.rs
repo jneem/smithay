@@ -281,6 +281,7 @@ where
             }
             zwp_input_method_v2::Request::GrabKeyboard { keyboard } => {
                 let input_method = data.handle.inner.lock().unwrap();
+                tracing::info!("grab keyboard");
                 data.keyboard_handle.set_grab(
                     state,
                     input_method.keyboard_grab.clone(),
