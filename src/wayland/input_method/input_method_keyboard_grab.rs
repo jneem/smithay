@@ -114,17 +114,18 @@ impl<D: SeatHandler + 'static> Dispatch<ZwpInputMethodKeyboardGrabV2, InputMetho
     }
 
     fn request(
-        _state: &mut D,
+        state: &mut D,
         _client: &wayland_server::Client,
         _resource: &ZwpInputMethodKeyboardGrabV2,
         request: zwp_input_method_keyboard_grab_v2::Request,
-        _data: &InputMethodKeyboardUserData<D>,
+        data: &InputMethodKeyboardUserData<D>,
         _dhandle: &wayland_server::DisplayHandle,
         _data_init: &mut wayland_server::DataInit<'_, D>,
     ) {
         match request {
             zwp_input_method_keyboard_grab_v2::Request::Release => {
-                // Nothing to do
+                data.handle.inner.lock().unwrap().grab = None;
+                data.keyboard_handle.unset_grab(state);
             }
             _ => unreachable!(),
         }
